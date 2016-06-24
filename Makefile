@@ -16,4 +16,7 @@ todo:
 loc:
 	find sphinxcontrib -type f -regex '.*\(\.py\)' | xargs wc -l
 
-.PHONY: html pdf todo loc
+tests:
+	tox
+
+.PHONY: html pdf todo loc tests

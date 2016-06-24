@@ -3,26 +3,10 @@
 *.swo
 *.so
 
-*.db
-*.fa
-*.pdf
-*.gml
-*.png
-*.svg
-
 *.egg-info
 *.egg
-build/
-dist/
-env/
 
 docs/_build
 docs/_templates
-docs/doxygen
-latex/
-html/
 
-leishmania/
-plots/
-
-lastz-distrib-*
+tests/cases/**/_build
