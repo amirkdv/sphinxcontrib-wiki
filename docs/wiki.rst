@@ -4,6 +4,9 @@
 Wiki
 ====
 
+.. wikipage:: intro
+  :title: Introduction
+
 .. wikipage:: faq
    :title: Potentially Asked Questions
 
