@@ -1,4 +1,6 @@
-[![Documentation Status](https://readthedocs.org/projects/biseqt/badge/?version=latest)](http://biseqt.readthedocs.org/en/latest/?badge=latest)
+[![Test Status](https://circleci.com/gh/amirkdv/sphinxcontrib-wiki.svg?style=shield)](https://circleci.com/gh/amirkdv/sphinxcontrib-wiki)
+
+[![Documentation Status](https://readthedocs.org/projects/sphinxcontrib-wiki/badge/?version=latest)](http://sphinxcontrib-wiki.readthedocs.org/en/latest/?badge=latest)
 
 
 [sphinxcontrib-wiki](https://sphinxcontrib-wiki.readthedocs.org) is an extension to
