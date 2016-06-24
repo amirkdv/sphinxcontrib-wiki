@@ -40,8 +40,8 @@ Allow wiki pages to be automatically generated from docstrings.
     - Sections within a package are treated as the parent of those in modules
       immediately within it.
 
-    Alternatively, a section can force its parent to a be specific other section,
-    for instance:
+    Alternatively, a section can force its parent to a be specific other
+    section, for instance:
 
     .. code-block:: rst
 
@@ -140,8 +140,12 @@ from sphinx.util.compat import Directive
 from docutils.parsers.rst import directives
 
 
-class wikisection(nodes.section): pass
-class wikipage(nodes.General, nodes.Element): pass
+class wikisection(nodes.section):
+    pass
+
+
+class wikipage(nodes.General, nodes.Element):
+    pass
 
 
 def _name_to_anchor(name):
@@ -164,8 +168,8 @@ class WikiSection(Directive):
     1. If parent is ``_default_``, the parent is the last observed section (as
        per sphinx-dictated order of ``traverse``) whose depth is one less than
        this section.
-    2. If parent is the title of another section, that section will be forced to
-       be the parent of this section.
+    2. If parent is the title of another section, that section will be forced
+       to be the parent of this section.
     3. If parent is ``_none_``, this section is placed in the top level of the
        corresponding wiki page.
 
@@ -183,7 +187,8 @@ class WikiSection(Directive):
     def run(self):
         env = self.state.document.settings.env
         if 'title' not in self.options or not self.options['title']:
-            env.app.warn('Ignoring wikipage section with no title in %s.' % env.docname)
+            env.app.warn('Ignoring wikipage section with no title in %s.' %
+                         env.docname)
             return []
 
         assert self.options['title'] not in ['_none_', '_default_']
@@ -206,9 +211,9 @@ class WikiSection(Directive):
 
 class WikiPage(Directive):
     """
-    Handler for the ``wikipage`` directive. Each page has one required argument,
-    its identifier and a required option, its ``title``. Optionally, a page
-    can have a body which will be rendered above all its child sections.
+    Handler for the ``wikipage`` directive. Each page has one required
+    argument, its identifier and a required option, its ``title``. Optionally,
+    a page can have a body which will be rendered above all its child sections.
     """
 
     has_content = True
@@ -224,7 +229,7 @@ class WikiPage(Directive):
         if 'title' not in self.options or not self.options['title']:
             title = '[' + self.arguments[0] + ']'
             env.app.warn(env.docname,
-                'Using name "%s" for wikipage with no title' % title)
+                         'Using name "%s" for wikipage with no title' % title)
         else:
             title = self.options['title']
 
@@ -233,9 +238,9 @@ class WikiPage(Directive):
             'title': title,
         }
 
-        # The wikipage directive can have its own content, parse it now. For the
-        # page sections belonging to it we have to wait until doctree-read for
-        # all page sections to be collected.
+        # The wikipage directive can have its own content, parse it now. For
+        # the page sections belonging to it we have to wait until doctree-read
+        # for all page sections to be collected.
         self.state.nested_parse(self.content, self.content_offset, page_node)
 
         return [page_node]
@@ -253,11 +258,11 @@ def doctree_read(app, doctree):
         The current implementation stores all sections in the build
         environment after ``doctree-read`` and uses them to populate all pages
         upon ``doctree-resolved``. This is needed to allow all sections to be
-        collected before any page is assembled. This has the caveat that certain
-        relative links in section bodies will break (e.g. links within the same
-        document as the wikisection) when they are moved to the place where
-        their page exists. Standard extensions (e.g. todo) suffer from the same
-        problem.
+        collected before any page is assembled. This has the caveat that
+        certain relative links in section bodies will break (e.g. links within
+        the same document as the wikisection) when they are moved to the place
+        where their page exists. Standard extensions (e.g. todo) suffer from
+        the same problem.
     """
     env = app.builder.env
 
@@ -307,7 +312,8 @@ def doctree_resolved(app, doctree, docname):
 def wikisection_container(app, env, sec_info):
     """Builds a sphinx section corresponding to a given ``wikisection``.
 
-    :param app: The "application", instance of :class:`sphinx.application.Sphinx`.
+    :param app: The "application", instance of
+        :class:`sphinx.application.Sphinx`.
     :param env: The build environment (i.e an instance of
         :class:`sphinx.environment.BuildEnvironment`).
     :param sec_info: A dictionary containing stored info about one section,
@@ -323,7 +329,7 @@ def wikisection_container(app, env, sec_info):
 
     docref = nodes.reference('', '', internal=True)
     docref_inner = nodes.literal(docname, docname,
-        classes=['xref', 'py', 'py-mod'])
+                                 classes=['xref', 'py', 'py-mod'])
     docref['refuri'] = app.builder.get_target_uri(docname)
     docref += docref_inner
 
@@ -338,9 +344,9 @@ def wikisection_container(app, env, sec_info):
     src_cont += src
 
     cont = nodes.section(classes=['wikipage-section'])
-    cont += sec_node.children # section contents
-    cont.append(src_cont) # source citation
-    cont['ids'] = sec_info['node']['ids'] # permalink
+    cont += sec_node.children               # section contents
+    cont.append(src_cont)                   # source citation
+    cont['ids'] = sec_info['node']['ids']   # permalink
 
     return cont
 
@@ -375,7 +381,8 @@ def wikipage_tree(app, env, page_node=None):
     """Builds a section tree for a given ``wikipage`` node by collecting all
     wikisections from the environment and placing them in the right place.
 
-    :param app: The "application", instance of :class:`sphinx.application.Sphinx`.
+    :param app: The "application", instance of
+        :class:`sphinx.application.Sphinx`.
     :param env: The build environment (i.e an instance of
         :class:`sphinx.environment.BuildEnvironment`).
     :param page_node: The :class:`wikipage` node as observed in some document.
@@ -390,12 +397,13 @@ def wikipage_tree(app, env, page_node=None):
         As long as the order in which sections are encountered is consistent
         with a DFS of the module hierarchy, i.e up to reorderings of siblings
         but not violating depth order, there are no problems. The DFS order is
-        what sphinx follows and the only possible chance of variation is in sibling
-        order caused by ``autodoc_member_order`` (and our output respects this
-        sibling order by default). But if for some reason, this assumption is
-        violated, i.e a section appearing deeper in the module hierarchy is
-        encountered before another section appearing shallower in the module
-        hierarchy, our logic for placing sections in the right place breaks.
+        what sphinx follows and the only possible chance of variation is in
+        sibling order caused by ``autodoc_member_order`` (and our output
+        respects this sibling order by default). But if for some reason, this
+        assumption is violated, i.e a section appearing deeper in the module
+        hierarchy is encountered before another section appearing shallower in
+        the module hierarchy, our logic for placing sections in the right place
+        breaks.
 
     .. wikisection:: faq
         :title: Cycles in parent relationships
@@ -420,20 +428,28 @@ def wikipage_tree(app, env, page_node=None):
     for sec_info in env.wikisections[page_name]:
         title = sec_info['node']['options']['title']
         if title in titles:
-            app.warn(env.docname, 'Ignoring wikipage containing sections with ' +
-                'duplicate titles "%s"' % title)
+            app.warn(env.docname,
+                     'Ignoring wikipage containing sections with ' +
+                     'duplicate titles "%s"' % title)
             return []
         titles.append(title)
 
-    secidx_by_name = {info['node']['options']['title']: idx for idx, info in enumerate(sections)}
-    forced_parent = {}  # wikisection index (int) => wikisection index of parent (int)
+    # section name (str) => idx in sections list (int)
+    secidx_by_name = {
+        info['node']['options']['title']: idx
+        for idx, info in enumerate(sections)
+    }
+    # wikisection index (int) => wikisection index of parent (int)
+    forced_parent = {}
     containers = [wikisection_container(app, env, info) for info in sections]
     sec_tree = []
 
     # Firt, we place only those wikisections in the tree that have _default_
-    # parent. Then, we place wikisections that force their parents (to _none_ or
-    # another wikisection).
-    last_of_depth = {} # wikisection depth (int) => wikisection container object
+    # parent. Then, we place wikisections that force their parents (to _none_
+    # or another wikisection).
+    #
+    # wikisection depth (int) => wikisection container object
+    last_of_depth = {}
 
     # Place the all sections as docutils nodes in sec_tree.
     for idx, sec_info in enumerate(sections):
@@ -448,7 +464,7 @@ def wikipage_tree(app, env, page_node=None):
                 continue
             # Unresolved reference; treat it as if it didn't have :parent:
             app.warn('wikisection "%s" references unknown parent "%s"' %
-                (sec_node['options']['title'], parent))
+                     (sec_node['options']['title'], parent))
 
         depth = sec_info['depth']
         last_of_depth[depth] = idx
@@ -487,7 +503,8 @@ def env_purge_doc(app, env, docname):
         return
     for name in env.wikisections:
         env.wikisections[name] = [sec for sec in env.wikisections[name]
-                                    if sec['docname'] != docname]
+                                  if sec['docname'] != docname]
+
 
 def env_merge_info(app, env, docnames, other):
     """Standard handler for sphinx's ``env-murge-info`` event. We need to
@@ -501,6 +518,8 @@ def env_merge_info(app, env, docnames, other):
 
 
 def _visit_wikisection(self, node): pass
+
+
 def _depart_wikisection(self, node): pass
 
 
@@ -517,7 +536,8 @@ def setup(app):
        :func:`doctree_resolved` -- are involved in moving sections from their
        original place to where the corresponding page is included. The other
        two -- :func:`env_purge_doc` and :func:`env_merge_info` -- are
-       implemented to make our usage of the build environment parallel-friendly.
+       implemented to make our usage of the build environment
+       parallel-friendly.
 
     """
     app.add_config_value('wiki_enabled', False, 'html')
