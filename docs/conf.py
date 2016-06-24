@@ -21,6 +21,19 @@ import os
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
+if os.environ.get('READTHEDOCS', None) == 'True':
+    # add theme hacks, cf. http://stackoverflow.com/a/32898444
+    html_context = {
+        'css_files': [
+            'https://media.readthedocs.org/css/sphinx_rtd_theme.css',
+            'https://media.readthedocs.org/css/readthedocs-doc-embed.css',
+            '_static/theme_hacks.css',
+        ],
+      }
+else:
+    def setup(app):
+        app.add_stylesheet('theme_hacks.css')
+
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
