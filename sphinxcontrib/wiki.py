@@ -139,11 +139,14 @@ from sphinx.util.compat import nodes
 from sphinx.util.compat import Directive
 from docutils.parsers.rst import directives
 
+
 class wikisection(nodes.section): pass
 class wikipage(nodes.General, nodes.Element): pass
 
+
 def _name_to_anchor(name):
     return '-'.join(name.split()).lower()
+
 
 class WikiSection(Directive):
     """
@@ -238,8 +241,6 @@ class WikiPage(Directive):
         return [page_node]
 
 
-# Executed upon doctree-read.
-# their original place under their corresponding page, if any.
 def doctree_read(app, doctree):
     """Handler for sphinx's ``doctree-read`` event. This is where we remove all
     ``wikisection`` nodes from the doctree and store them in the build
@@ -286,6 +287,7 @@ def doctree_read(app, doctree):
     # At this point, a document containing wikisections has spurious entries
     # in its ToC; rebuild it.
     env.build_toc_from(env.docname, doctree)
+
 
 def doctree_resolved(app, doctree, docname):
     """Handler for sphinx's ``doctree-resolved`` event. This is where we replace
@@ -342,8 +344,7 @@ def wikisection_container(app, env, sec_info):
 
     return cont
 
-# Returns a docutils node corresponding to a given wikipage provided its tree of
-# wikisection nodes is compiled.
+
 def wikipage_container(env, sec_tree, page_node):
     """Builds a sphinx section corresponding to a ``wikipage`` provided the
     ``wikisection`` tree for it is given.
@@ -368,6 +369,7 @@ def wikipage_container(env, sec_tree, page_node):
     cont += sec_tree
     cont['ids'] = [_name_to_anchor(page_node['options']['name'])]
     return cont
+
 
 def wikipage_tree(app, env, page_node=None):
     """Builds a section tree for a given ``wikipage`` node by collecting all
@@ -500,6 +502,7 @@ def env_merge_info(app, env, docnames, other):
 
 def _visit_wikisection(self, node): pass
 def _depart_wikisection(self, node): pass
+
 
 def setup(app):
     """
