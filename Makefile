@@ -1,6 +1,7 @@
 html:
 	rm -rf docs/_build
 	sphinx-apidoc -f -e -o docs sphinxcontrib
+	rm -f docs/modules.rst docs/sphinxcontrib.rst
 	cd docs && sphinx-build -v -b html . _build
 	@echo visit file://$(shell readlink -f docs)/_build/index.html
 
