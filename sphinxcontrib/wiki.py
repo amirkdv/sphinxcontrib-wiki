@@ -8,7 +8,7 @@ Allow wiki pages to be automatically generated from docstrings.
     ``sphinxcontrib-wiki`` is a Sphinx_ extension which allows wiki pages to be
     automatically generated from docstrings. Here is an example:
 
-    .. _Sphinx: www.sphinx-doc.org/
+    .. _Sphinx: https://www.sphinx-doc.org/
 
     .. code-block:: rst
 
@@ -123,8 +123,8 @@ Allow wiki pages to be automatically generated from docstrings.
     - missing and empty title for ``wikipage``
     - duplicate section titles.
 
-    .. _blockdiag: github.com/blockdiag/sphinxcontrib-blockdiag
-    .. _sphinx-testing: github.com/sphinx-doc/sphinx-testing
+    .. _blockdiag: https://github.com/blockdiag/sphinxcontrib-blockdiag
+    .. _sphinx-testing: https://github.com/sphinx-doc/sphinx-testing
 
 .. wikisection:: todo
     :title: Report
