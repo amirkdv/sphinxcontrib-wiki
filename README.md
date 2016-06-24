@@ -1,5 +1,4 @@
 [![Test Status](https://circleci.com/gh/amirkdv/sphinxcontrib-wiki.svg?style=shield)](https://circleci.com/gh/amirkdv/sphinxcontrib-wiki)
-
 [![Documentation Status](https://readthedocs.org/projects/sphinxcontrib-wiki/badge/?version=latest)](http://sphinxcontrib-wiki.readthedocs.org/en/latest/?badge=latest)
 
 
