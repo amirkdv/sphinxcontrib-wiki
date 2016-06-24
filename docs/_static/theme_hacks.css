@@ -19,7 +19,7 @@ body {
   font-family: Roboto !important;
 }
 
-.wy-side-nav-search .wy-nav-top {
+.wy-side-nav-search, .wy-nav-top {
   background-color: #528452 !important;
 }
 
