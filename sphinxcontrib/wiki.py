@@ -299,7 +299,7 @@ def doctree_resolved(app, doctree, docname):
     """
     env = app.builder.env
     for node in doctree.traverse(wikipage):
-        newnode = wikipage_tree(app, env, page_node=node)
+        newnode = wikipage_tree(app, env, docname, page_node=node)
         node.replace_self(newnode)
 
     # At this point, a document containing pages has missing entries in its
@@ -375,7 +375,7 @@ def wikipage_container(env, sec_tree, page_node):
     return cont
 
 
-def wikipage_tree(app, env, page_node=None):
+def wikipage_tree(app, env, docname, page_node=None):
     """Builds a section tree for a given ``wikipage`` node by collecting all
     wikisections from the environment and placing them in the right place.
 
@@ -383,6 +383,7 @@ def wikipage_tree(app, env, page_node=None):
         :class:`sphinx.application.Sphinx`.
     :param env: The build environment (i.e an instance of
         :class:`sphinx.environment.BuildEnvironment`).
+    :param docname: The document name where this :class:`wikipage` was found.
     :param page_node: The :class:`wikipage` node as observed in some document.
 
     :returns: A list of top level sections.
@@ -426,7 +427,7 @@ def wikipage_tree(app, env, page_node=None):
     for sec_info in env.wikisections[page_name]:
         title = sec_info['node']['options']['title']
         if title in titles:
-            app.warn(env.docname,
+            app.warn(docname,
                      'Ignoring wikipage containing sections with ' +
                      'duplicate titles "%s"' % title)
             return []
