@@ -1,9 +1,12 @@
+DOCS_EXCLUDE = tests
+DOCS_OUT = docs
+DOCS_BUILD = _build
 html:
-	rm -rf docs/_build
-	sphinx-apidoc -f -e -o docs sphinxcontrib
-	rm -f docs/modules.rst docs/sphinxcontrib.rst
-	cd docs && sphinx-build -v -b html . _build
-	@echo visit file://$(shell readlink -f docs)/_build/index.html
+	rm -rf $(DOCS_OUT)/$(DOCS_BUILD)
+	sphinx-apidoc -f -e -o $(DOCS_OUT) sphinxcontrib
+	rm -f $(DOCS_OUT)/modules.rst $(DOCS_OUT)/sphinxcontrib.rst
+	cd $(DOCS_OUT) && sphinx-build -v -b html . $(DOCS_BUILD)
+	@echo visit file://$(shell readlink -f $(DOCS_OUT))/$(DOCS_BUILD)/index.html
 
 # FIXME
 pdf:
