@@ -12,4 +12,4 @@
 docs/_build
 docs/_templates
 
-tests/cases/**/_build
+tests/**/_build
