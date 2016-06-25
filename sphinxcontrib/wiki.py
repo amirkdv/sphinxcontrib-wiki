@@ -278,7 +278,6 @@ def doctree_read(app, doctree):
         # This is because the next time we see it will be in doctree-resolve
         # where we cannot call resolve_references anymore since the event is
         # emitted from within resolve_references.
-        #
         env.resolve_references(node, env.docname, app.builder)
         if app.config['wiki_enabled']:
             env.wikisections[page_name].append({

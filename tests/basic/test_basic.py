@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from sphinx_testing import with_app
-import os.path
 import sys
+import os.path
 
 this_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.dirname(this_dir))
-from util import find_sub, BeautifulSoup
+from util import find_sub, get_html_soup
 
 srcdir = os.path.join(this_dir, 'docs/')
 
@@ -14,11 +14,9 @@ def test_build_html(app, status, warning):
     app.builder.build_all()
     assert os.path.exists(os.path.join(app.outdir, 'index.html'))
 
-    with open(os.path.join(app.outdir, 'index.html')) as f:
-        html = f.read()
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = get_html_soup(app, 'index.html')
 
-    toc = soup.select('.sphinxsidebarwrapper > ul')[0]
+    toc = soup.find('a', text='Table Of Contents').parent.nextSibling
     assert toc, 'There must be a ToC in the sidebar'
 
     docroot = find_sub(toc, 'Master Title')

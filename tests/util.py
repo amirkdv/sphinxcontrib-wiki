@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os.path
 from bs4 import BeautifulSoup
 
 def find_sub(parent, text):
@@ -37,3 +37,13 @@ def find_sub(parent, text):
         if sub:
             return sub
     return None
+
+def get_html_soup(app, path):
+    with open(os.path.join(app.outdir, path)) as f:
+        html = f.read()
+
+    # get rid of whitespace; otherwise tests break cf.
+    # https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
+    html = ''.join(line.strip() for line in html.split('\n'))
+
+    return BeautifulSoup(html, 'html.parser')
