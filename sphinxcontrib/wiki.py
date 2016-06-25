@@ -137,6 +137,7 @@ Allow wiki pages to be automatically generated from docstrings.
 import sphinx
 from sphinx.util.compat import nodes
 from sphinx.util.compat import Directive
+from sphinx.environment import NoUri
 from docutils.parsers.rst import directives
 
 
@@ -328,7 +329,11 @@ def wikisection_container(app, env, sec_info):
     docref = nodes.reference('', '', internal=True)
     docref_inner = nodes.literal(docname, docname,
                                  classes=['xref', 'py', 'py-mod'])
-    docref['refuri'] = app.builder.get_target_uri(docname)
+    try:
+        docref['refuri'] = app.builder.get_target_uri(docname)
+    except NoUri:
+        # Don't crash in LaTeX output
+        pass
     docref += docref_inner
 
     parts = ['[' + sphinx.locale._('source') + ': ', ']']
