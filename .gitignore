@@ -6,6 +6,9 @@
 *.egg-info
 *.egg
 
+.tox
+.cache
+
 docs/_build
 docs/_templates
 
