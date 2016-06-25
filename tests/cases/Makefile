@@ -1,8 +1,10 @@
 html:
 	rm -rf docs/_build
-	sphinx-apidoc -f -e -o docs pkg
 	cd docs && sphinx-build -v -b html . _build
 	@echo visit file://$(shell readlink -f docs)/_build/index.html
+
+docs/modules.rst:
+	sphinx-apidoc -f -e -o docs pkg
 
 pdf:
 	cd docs && sphinx-build -b latex . _build
