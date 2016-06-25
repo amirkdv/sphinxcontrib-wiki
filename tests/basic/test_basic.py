@@ -17,7 +17,7 @@ def test_build_html(app, status, warning):
     soup = get_html_soup(app, 'index.html')
 
     toc = soup.find('a', text='Table Of Contents').parent.nextSibling
-    assert toc, 'There must be a ToC in the sidebar'
+    assert toc, 'There must be a Table Of Contents'
 
     docroot = find_sub(toc, 'Master Title')
     assert docroot, 'The document master title must be in the ToC'
