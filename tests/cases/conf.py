@@ -29,7 +29,6 @@ sys.path.insert(0, os.path.abspath('../../../..'))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
     'sphinxcontrib.wiki',
 ]
 wiki_enabled = True
