@@ -1,7 +1,7 @@
-biseqt
-======
+pkg
+===
 
 .. toctree::
    :maxdepth: 4
 
-   biseqt
+   pkg

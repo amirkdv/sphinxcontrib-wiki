@@ -1,7 +1,7 @@
-biseqt.bw module
+pkg.mod_b module
 ================
 
-.. automodule:: biseqt.bw
+.. automodule:: pkg.mod_b
     :members:
     :undoc-members:
     :show-inheritance:

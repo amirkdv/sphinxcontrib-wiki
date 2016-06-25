@@ -1,7 +1,7 @@
-biseqt.pw module
+pkg.mod_a module
 ================
 
-.. automodule:: biseqt.pw
+.. automodule:: pkg.mod_a
     :members:
     :undoc-members:
     :show-inheritance:

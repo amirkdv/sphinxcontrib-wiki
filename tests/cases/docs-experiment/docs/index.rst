@@ -1,11 +1,10 @@
-.. biseqt documentation master file.
+.. pkg documentation master file.
 
-=========================================
- Documentation for ``sphinxcontrib-wiki``
-=========================================
+==========================
+ Documentation for ``pkg``
+==========================
 
 .. toctree::
-  :hidden:
 
-  faq
-  API Reference <modules>
+  a_wiki
+  modules

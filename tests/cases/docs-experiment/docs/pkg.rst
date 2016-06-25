@@ -1,27 +1,25 @@
-biseqt package
-==============
+pkg package
+===========
 
 Subpackages
 -----------
 
 .. toctree::
 
-    biseqt.overlap
+    pkg.sub_pkg
 
 Submodules
 ----------
 
 .. toctree::
 
-   biseqt.aw
-   biseqt.bw
-   biseqt.pw
-   biseqt.qw
+   pkg.mod_a
+   pkg.mod_b
 
 Module contents
 ---------------
 
-.. automodule:: biseqt
+.. automodule:: pkg
     :members:
     :undoc-members:
     :show-inheritance:

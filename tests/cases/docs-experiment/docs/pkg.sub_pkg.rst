@@ -1,17 +1,17 @@
-biseqt.overlap package
-======================
+pkg.sub_pkg package
+===================
 
 Submodules
 ----------
 
 .. toctree::
 
-   biseqt.overlap.discovery
+   pkg.sub_pkg.sub_pkg_mod
 
 Module contents
 ---------------
 
-.. automodule:: biseqt.overlap
+.. automodule:: pkg.sub_pkg
     :members:
     :undoc-members:
     :show-inheritance:
