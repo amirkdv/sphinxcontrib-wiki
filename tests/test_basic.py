@@ -4,29 +4,38 @@ from sphinx_testing import with_app
 from bs4 import BeautifulSoup
 import os.path
 
-"""
-<div class="toctree-wrapper compound">
- <ul>
-  <li>
-   <a href="a_wiki.html"> Wiki </a>
-   <ul>
-    <li>
-     <a href="a_wiki.html#wiki"> Wiki Root </a>
-     <ul>
-      <li>
-        <a href="a_wiki.html#section-from-pkg"> Section from pkg </a>
-      </li>
-     </ul>
-    </li>
-   </ul>
-  </li>
-</div>
-"""
+def _find_sub(parent, text):
+    """
+    Given an a ToC entry find an entry directly underneath it with the given
+    text. Here is the structure of a rendered table of contents with two levels
+    of depth:
 
+        .. code-block:: html
 
-def _find_sub(ul, text):
+            <div class="toctree-wrapper compound">
+             <ul>
+              <li>
+               <a href="foo">Grandparent</a>
+               <ul>
+                <li>
+                 <a href="bar">Parent</a>
+                 <ul>
+                  <li>
+                    <a href="baz">Child</a>
+                  </li>
+                 </ul>
+                </li>
+               </ul>
+              </li>
+            </div>
+
+    For convenience, the provided parent can be either the <a> tag of the parent
+    entry or the <ul> tag containing all its ToC descendents.
+    """
+    assert parent.name in ['a', 'ul']
+    ul = parent.nextSibling if parent.name == 'a' else parent
     for child in ul.findChildren(recursive=False):
-        sub = child.find('a', href=True, text=text)
+        sub = child.find('a', href=True, text=text, recursive=False)
         if sub:
             return sub
     return None
@@ -41,17 +50,20 @@ def test_build_html(app, status, warning):
     soup = BeautifulSoup(html, 'html.parser')
 
     toc = soup.find('div', {'class': 'toctree-wrapper'})
-    toc_ul = toc.findChildren()[0]
-    assert toc_ul
+    toc = toc.findChildren()[0]
+    assert toc
 
-    root = _find_sub(toc_ul, 'Wiki Root')
-    assert root
+    docroot = _find_sub(toc, 'Wiki')
+    assert docroot
 
-    pkg_sec = _find_sub(root.nextSibling, 'Section from pkg')
+    pageroot = _find_sub(docroot, 'Wiki Root')
+    assert pageroot
+
+    pkg_sec = _find_sub(pageroot, 'Section from pkg')
     assert pkg_sec
 
-    assert _find_sub(pkg_sec.nextSibling, 'Section from pkg.mod_a')
-    assert _find_sub(pkg_sec.nextSibling, 'Section from pkg.mod_a.SomeClass')
+    assert _find_sub(pkg_sec, 'Section from pkg.mod_a')
+    assert _find_sub(pkg_sec, 'Section from pkg.mod_a.SomeClass')
 
 # for print debugging:
 if __name__ == '__main__':
