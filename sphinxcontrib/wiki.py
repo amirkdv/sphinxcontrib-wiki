@@ -104,27 +104,11 @@ Allow wiki pages to be automatically generated from docstrings.
               section2
 
 .. wikisection:: todo
-    :title: Add Tests
+    :title: Tree documentation
 
-    Following the example of blockdiag_ add tests using sphinx-testing_ to
-    cover:
-
-    - basic usage,
-    - subpackages,
-    - no sections in the top level of package (the highest level section should
-      be raised to top level),
-    - usage of ``_default_`` parent,
-    - forced parents outside of module hierarchy,
-    - forced ``_none_`` parents,
-    - using a deep wiki section in a shallow wiki page (such that the page is
-      certainly observed before the section); make sure the section gets picked
-      up.
-    - missing and empty title for ``wikisection``
-    - missing and empty title for ``wikipage``
-    - duplicate section titles.
-
-    .. _blockdiag: https://github.com/blockdiag/sphinxcontrib-blockdiag
-    .. _sphinx-testing: https://github.com/sphinx-doc/sphinx-testing
+    Document more clearly how the wiki page tree structure is determined by
+    default: it's all in the dots in rst document name, i.e ideally for python
+    packages and potentially confusing otherwise.
 
 .. wikisection:: todo
     :title: Report
