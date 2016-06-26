@@ -41,4 +41,7 @@ DOCKER_IMG = amirkdv/python3
 docker_image:
 	cat Dockerfile | docker build -t $(DOCKER_IMG) -
 
-.PHONY: html pdf todo loc tests
+docker_run:
+	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
+
+.PHONY: html pdf todo loc tests docker_image docker_run

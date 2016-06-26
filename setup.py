@@ -6,7 +6,7 @@ setup(
     name='sphinxcontrib-wiki',
     version='0.1',
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
-    license='BSD',
+    license='MIT',
     author='Amir Kadivar',
     author_email='amir@amirkdv.ca',
     description='A simple wiki extension for Sphinx',
