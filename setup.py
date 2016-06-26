@@ -7,15 +7,18 @@ try:
 except ImportError:
     pass
 
+with open('README.rst', encoding='utf-8') as f:
+    REAMDE = f.read()
+
 setup(
     name='sphinxcontrib-wiki',
-    version='0.2',
+    version='0.2.1',
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
     license='MIT',
     author='Amir Kadivar',
     author_email='amir@amirkdv.ca',
-    description='A simple wiki extension for Sphinx',
-    long_description=open('README.rst', encoding='utf-8').read(),
+    description='Create wiki pages in sphinx documents',
+    long_description='',
     zip_safe=False,
     # cf. https://pypi.python.org/pypi?:action=list_classifiers
     classifiers=[
