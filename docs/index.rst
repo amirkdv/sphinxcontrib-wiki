@@ -13,7 +13,7 @@ and assembled on demand using two custom directives: ``wikisection``, and
 external documentation files to be broken down to sections and placed in
 docstrings for corresponding portions of code.
 
-To get started, install the package via PyPI_ and follow the documentation_ and
+To get started, install the package via PyPI_, follow the docs_ and
 sample usage in the tests_ directory.
 
 .. _PyPi: https://pypi.python.org/pypi/sphinxcontrib-wiki/
