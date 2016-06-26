@@ -22,9 +22,6 @@ todo:
 loc:
 	find sphinxcontrib -type f -regex '.*\(\.py\)' | xargs wc -l
 
-tests:
-	tox
-
 env:
 	virtualenv env
 	. env/bin/activate && \
@@ -46,7 +43,9 @@ docker_image:
 docker_run:
 	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
 
-publish: README.rst tests
-	python setup.py register sdist upload
+publish: README.rst
+	python setup.py register
+	python setup.py sdist upload
+	rm -f ~/.pypirc
 
 .PHONY: README.rst html pdf todo loc tests docker_image docker_run

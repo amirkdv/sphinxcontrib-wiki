@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     # cf. https://pypi.python.org/pypi?:action=list_classifiers
     classifiers=[
-        'Development Status :: 4 - Beta'
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Environment :: Web Environment',
         'Framework :: Sphinx :: Extension',
