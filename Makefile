@@ -28,7 +28,7 @@ env:
 	. env/bin/activate && pip install flake8 sphinx sphinx_rtd_theme sphinx_testing bs4 pytest
 
 env3:
-	virtualenv -p python3 env3
+	pyvenv env3
 	. env3/bin/activate && pip install flake8 sphinx sphinx_rtd_theme sphinx_testing bs4 pytest
 
 .PHONY: html pdf todo loc tests
