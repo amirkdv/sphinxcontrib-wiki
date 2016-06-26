@@ -119,6 +119,7 @@ Allow wiki pages to be automatically generated from docstrings.
 """
 
 import sphinx
+from sphinx import addnodes
 from sphinx.util.compat import nodes
 from sphinx.util.compat import Directive
 from sphinx.environment import NoUri
@@ -243,11 +244,7 @@ def doctree_read(app, doctree):
         The current implementation stores all sections in the build
         environment after ``doctree-read`` and uses them to populate all pages
         upon ``doctree-resolved``. This is needed to allow all sections to be
-        collected before any page is assembled. This has the caveat that
-        certain relative links in section bodies will break (e.g. links within
-        the same document as the wikisection) when they are moved to the place
-        where their page exists. Standard extensions (e.g. todo) suffer from
-        the same problem.
+        collected before any page is assembled.
     """
     env = app.builder.env
 
@@ -259,10 +256,6 @@ def doctree_read(app, doctree):
         if page_name not in env.wikisections:
             env.wikisections[page_name] = []
 
-        # Resolve references in the wikisection body before we store it in env.
-        # This is because the next time we see it will be in doctree-resolve
-        # where we cannot call resolve_references anymore since the event is
-        # emitted from within resolve_references.
         if app.config['wiki_enabled']:
             env.wikisections[page_name].append({
                 'docname': env.docname,
@@ -280,7 +273,7 @@ def doctree_read(app, doctree):
 def doctree_resolved(app, doctree, docname):
     """Handler for sphinx's ``doctree-resolved`` event. This is where we replace
     all ``wikipage`` nodes based on the stored sections from the build
-    environment.
+    environment and resolve all references.
     """
     env = app.builder.env
     for node in doctree.traverse(wikipage):
@@ -290,6 +283,34 @@ def doctree_resolved(app, doctree, docname):
     # At this point, a document containing pages has missing entries in its
     # ToC; rebuild it.
     env.build_toc_from(docname, doctree)
+
+    # Now all pending_xref nodes can be properly resolved.
+    # NOTE this is taken, and slightly modified, from
+    # sphinx.environment.resolve_references().
+    for node in doctree.traverse(addnodes.pending_xref):
+        contnode = node[0].deepcopy()
+        newnode = None
+
+        typ = node['reftype']
+        target = node['reftarget']
+        domain = None
+
+        try:
+            if 'refdomain' in node and node['refdomain']:
+                # let the domain try to resolve the reference
+                try:
+                    domain = env.domains[node['refdomain']]
+                except KeyError:
+                    raise NoUri
+                # We don't care where the node is actually coming from, i.e
+                # its attributes['refdoc']. It now belongs to this document,
+                # resolve links as if it belongs to us.
+                newnode = domain.resolve_xref(env, docname, app.builder,
+                                              typ, target, node, contnode)
+
+        except NoUri:
+            newnode = contnode
+        node.replace_self(newnode or contnode)
 
 
 def wikisection_container(app, env, sec_info):
