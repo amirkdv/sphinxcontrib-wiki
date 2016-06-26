@@ -1,6 +1,3 @@
-README.rst:
-	cp docs/index.rst $@
-
 DOCS_EXCLUDE = tests
 DOCS_OUT = docs
 DOCS_BUILD = _build
@@ -43,7 +40,7 @@ docker_image:
 docker_run:
 	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
 
-publish: README.rst
+publish:
 	python setup.py register
 	python setup.py sdist upload
 	rm -f ~/.pypirc
