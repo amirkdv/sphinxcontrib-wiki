@@ -44,4 +44,7 @@ docker_image:
 docker_run:
 	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
 
+publish:
+	python setup.py register sdist upload
+
 .PHONY: html pdf todo loc tests docker_image docker_run

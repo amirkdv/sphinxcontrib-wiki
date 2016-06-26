@@ -4,14 +4,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='sphinxcontrib-wiki',
-    version='0.1',
+    version='0.1.1',
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
     license='MIT',
     author='Amir Kadivar',
     author_email='amir@amirkdv.ca',
     description='A simple wiki extension for Sphinx',
-    long_description="""Allow wiki pages to be defined section by section in
-        docstrings and assembled on demand in a sphinx documents.""",
+    long_description='Allow wiki pages to be defined section by section in' +
+        ' docstrings and assembled on demand in a sphinx documents.',
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
