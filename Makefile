@@ -1,3 +1,6 @@
+README.rst:
+	cp docs/index.rst $@
+
 DOCS_EXCLUDE = tests
 DOCS_OUT = docs
 DOCS_BUILD = _build
@@ -8,7 +11,6 @@ html:
 	cd $(DOCS_OUT) && sphinx-build -v -b html . $(DOCS_BUILD)
 	@echo visit file://$(shell readlink -f $(DOCS_OUT))/$(DOCS_BUILD)/index.html
 
-# FIXME
 pdf:
 	cd docs && sphinx-build -b latex . _build
 	rm -f $@
@@ -44,7 +46,7 @@ docker_image:
 docker_run:
 	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
 
-publish:
+publish: README.rst tests
 	python setup.py register sdist upload
 
-.PHONY: html pdf todo loc tests docker_image docker_run
+.PHONY: README.rst html pdf todo loc tests docker_image docker_run
