@@ -25,10 +25,20 @@ tests:
 
 env:
 	virtualenv env
-	. env/bin/activate && pip install flake8 sphinx sphinx_rtd_theme sphinx_testing bs4 pytest
+	. env/bin/activate && \
+		pip install -e . && \
+		pip install -e .[tests] && \
+		pip install -e .[docs]
 
 env3:
 	pyvenv env3
-	. env3/bin/activate && pip install flake8 sphinx sphinx_rtd_theme sphinx_testing bs4 pytest
+	. env3/bin/activate && \
+		pip install -e . && \
+		pip install -e .[tests] && \
+		pip install -e .[docs]
+
+DOCKER_IMG = amirkdv/python3
+docker_image:
+	cat Dockerfile | docker build -t $(DOCKER_IMG) -
 
 .PHONY: html pdf todo loc tests

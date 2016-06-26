@@ -3,10 +3,9 @@ from sphinx_testing import with_app
 import sys
 import os.path
 
-this_dir = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.dirname(this_dir))
-from util import find_sub, get_html_soup
+from ..util import find_sub, get_html_soup
 
+this_dir = os.path.abspath(os.path.dirname(__file__))
 srcdir = os.path.join(this_dir, 'docs/')
 
 @with_app(buildername='html', srcdir=srcdir)

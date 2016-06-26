@@ -12,4 +12,7 @@
 docs/_build
 docs/_templates
 
+env
+env3
+
 tests/**/_build
