@@ -44,3 +44,4 @@ def test_build_latex(app, status, warning):
 # for print debugging:
 if __name__ == '__main__':
     test_build_html()
+    test_build_latex()
