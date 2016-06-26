@@ -24,3 +24,4 @@ sample usage in the tests_ directory.
 
 .. |teststatus| image:: https://circleci.com/gh/amirkdv/sphinxcontrib-wiki.svg?style=shield
     :target: https://circleci.com/gh/amirkdv/sphinxcontrib-wiki
+
