@@ -2,6 +2,11 @@
 import os.path
 from bs4 import BeautifulSoup
 
+try:
+    from io import open
+except ImportError:
+    pass
+
 def find_sub(parent, text):
     """
     Given an a ToC entry find an entry directly underneath it with the given
@@ -39,7 +44,7 @@ def find_sub(parent, text):
     return None
 
 def get_html_soup(app, path):
-    with open(os.path.join(app.outdir, path)) as f:
+    with open(os.path.join(app.outdir, path), encoding='utf-8') as f:
         html = f.read()
 
     # get rid of whitespace; otherwise tests break cf.
