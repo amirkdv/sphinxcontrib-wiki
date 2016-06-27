@@ -2,7 +2,7 @@
 A Wiki extension for Sphinx
 ===========================
 
-|teststatus| |docstatus|
+|teststatus| |docstatus| |pypistatus|
 
 An extension for sphinx_ that allows wiki pages to be defined section by section
 and assembled on demand using two custom directives: ``wikisection``, and
@@ -25,3 +25,5 @@ sample usage in the tests_ directory.
 .. |teststatus| image:: https://circleci.com/gh/amirkdv/sphinxcontrib-wiki.svg?style=shield
     :target: https://circleci.com/gh/amirkdv/sphinxcontrib-wiki
 
+.. |pypistatus| image:: https://img.shields.io/pypi/v/sphinxcontrib-wiki.svg
+    :target: https://pypi.python.org/pypi/sphinxcontrib-wiki/
