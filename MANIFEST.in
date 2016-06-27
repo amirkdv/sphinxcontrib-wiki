@@ -1,0 +1,8 @@
+include README.rst
+include LICENSE
+include Makefile
+
+recursive-include docs *.rst *.py
+recursive-include tests *.rst *.py Makefile
+
+global-exclude *.py[co]

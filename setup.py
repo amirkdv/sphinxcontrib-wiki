@@ -8,17 +8,17 @@ except ImportError:
     pass
 
 with open('README.rst', encoding='utf-8') as f:
-    REAMDE = f.read()
+    README = f.read()
 
 setup(
     name='sphinxcontrib-wiki',
-    version='0.2.2',
+    version='0.2.3',
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
     license='MIT',
     author='Amir Kadivar',
     author_email='amir@amirkdv.ca',
     description='Assemble sections into wiki pages in sphinx documents',
-    long_description='', # cf. README.rst
+    long_description=README,
     zip_safe=True,
     classifiers=[ # cf. https://pypi.python.org/pypi?:action=list_classifiers
         'Development Status :: 4 - Beta',
