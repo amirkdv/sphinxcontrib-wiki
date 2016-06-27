@@ -17,11 +17,10 @@ setup(
     license='MIT',
     author='Amir Kadivar',
     author_email='amir@amirkdv.ca',
-    description='Create wiki pages in sphinx documents',
-    long_description='',
-    zip_safe=False,
-    # cf. https://pypi.python.org/pypi?:action=list_classifiers
-    classifiers=[
+    description='Assemble sections into wiki pages in sphinx documents',
+    long_description='', # cf. README.rst
+    zip_safe=True,
+    classifiers=[ # cf. https://pypi.python.org/pypi?:action=list_classifiers
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Environment :: Web Environment',
