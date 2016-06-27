@@ -20,7 +20,7 @@ setup(
     description='Assemble sections into wiki pages in sphinx documents',
     long_description=README,
     zip_safe=True,
-    classifiers=[ # cf. https://pypi.python.org/pypi?:action=list_classifiers
+    classifiers=[   # cf. https://pypi.python.org/pypi?:action=list_classifiers
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Environment :: Web Environment',
