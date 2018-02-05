@@ -1,4 +1,6 @@
 dependencies:
   override:
     - pip install tox tox-pyenv
-    - pyenv local 2.7.11 3.5.1 # cf list https://circleci.com/docs/1.0/build-image-trusty/#python
+    # cf https://circleci.com/docs/1.0/build-image-trusty/#python
+    #    https://github.com/samstav/tox-pyenv
+    - pyenv local 2.7.11 3.5.1
