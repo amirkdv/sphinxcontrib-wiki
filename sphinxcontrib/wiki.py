@@ -120,8 +120,9 @@ Allow wiki pages to be automatically generated from docstrings.
 
 import sphinx
 from sphinx import addnodes
-from sphinx.util.compat import nodes
-from sphinx.util.compat import Directive
+from docutils import nodes
+from docutils.parsers.rst import Directive
+from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.environment import NoUri
 from docutils.parsers.rst import directives
 
@@ -267,7 +268,7 @@ def doctree_read(app, doctree):
 
     # At this point, a document containing wikisections has spurious entries
     # in its ToC; rebuild it.
-    env.build_toc_from(env.docname, doctree)
+    TocTreeCollector().process_doc(app, doctree)
 
 
 def doctree_resolved(app, doctree, docname):
@@ -282,7 +283,9 @@ def doctree_resolved(app, doctree, docname):
 
     # At this point, a document containing pages has missing entries in its
     # ToC; rebuild it.
-    env.build_toc_from(docname, doctree)
+    # HACK for some reason the env object here doesn't have docname
+    env.temp_data['docname'] = docname
+    TocTreeCollector().process_doc(app, doctree)
 
     # Now all pending_xref nodes can be properly resolved.
     # NOTE this is taken, and slightly modified, from

@@ -42,7 +42,7 @@ setup(
     platforms='any',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
-    install_requires=['sphinx>=0.6'],
+    install_requires=['sphinx>=1.6'],
     extras_require={
         'tests': [
             'flake8',
