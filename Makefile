@@ -41,7 +41,18 @@ docker_image:
 docker_run:
 	docker run -it -v $(PWD):/var/build $(DOCKER_IMG) bash
 
+# create a ~/.pypirc file first with this format; cf. https://github.com/pypa/pypi-legacy/issues/590
+#
+# [distutils]
+# index-servers =
+#  pypi
+
+# [pypi]
+# repository: https://upload.pypi.org/legacy/
+# username: ...
+# password: ...
 publish:
+	[ -e ~/.pypirc ] || { echo 'create ~/.pypirc first, instructions in Makefile'; exit 1; }
 	python setup.py register
 	python setup.py sdist upload
 	rm -f ~/.pypirc
