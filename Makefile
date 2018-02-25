@@ -29,7 +29,7 @@ env:
 env3:
 	pyvenv env3
 	. env3/bin/activate && \
-		pip install setuptools wheel && \
+		pip install -U pip setuptools wheel && \
 		pip install -e . && \
 		pip install -e .[tests] && \
 		pip install -e .[docs]

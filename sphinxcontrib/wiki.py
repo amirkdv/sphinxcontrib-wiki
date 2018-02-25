@@ -35,8 +35,8 @@ Allow wiki pages to be automatically generated from docstrings.
 
     - Sections within a module are treated as siblings in the order they
       appear regardless of the depth of the class or function they belong to.
-    - Sections within sibling modules are treated as siblings in the order
-      they are processed as per ``autodoc_member_order``.
+    - Sections within sibling modules are treated as siblings in _alphabetic_
+      order (and not as they are processed as per ``autodoc_member_order``).
     - Sections within a package are treated as the parent of those in modules
       immediately within it.
 
@@ -431,6 +431,8 @@ def wikipage_tree(app, env, docname, page_node=None):
     page_name = page_node['options']['name']
     try:
         sections = env.wikisections[page_name]
+        sections = sorted(sections,
+                          key=lambda s: s['node']['options']['title'])
     except KeyError:
         app.warn('Ignoring wikipage "%s" with no page sections.' % page_name)
         return []
