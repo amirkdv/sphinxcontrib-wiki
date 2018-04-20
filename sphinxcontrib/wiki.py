@@ -288,32 +288,28 @@ def doctree_resolved(app, doctree, docname):
     TocTreeCollector().process_doc(app, doctree)
 
     # Now all pending_xref nodes can be properly resolved.
-    # NOTE this is taken, and slightly modified, from
-    # sphinx.environment.resolve_references().
+    # NOTE cf. sphinx.environment.resolve_references().
     for node in doctree.traverse(addnodes.pending_xref):
-        contnode = node[0].deepcopy()
-        newnode = None
-
-        typ = node['reftype']
-        target = node['reftarget']
-        domain = None
-
         try:
-            if 'refdomain' in node and node['refdomain']:
-                # let the domain try to resolve the reference
-                try:
-                    domain = env.domains[node['refdomain']]
-                except KeyError:
-                    raise NoUri
-                # We don't care where the node is actually coming from, i.e
-                # its attributes['refdoc']. It now belongs to this document,
-                # resolve links as if it belongs to us.
-                newnode = domain.resolve_xref(env, docname, app.builder,
-                                              typ, target, node, contnode)
-
-        except NoUri:
+            # if a wikipage is included in two places, the doctree is not
+            # updated after the first resolution of references (i.e node parent
+            # has a "reference" node instead of a "pending_xref" node) while
+            # the doctree traversal still sees pending_xref nodes.
+            node.parent.index(node)
+        except ValueError:
+            continue
+        contnode = node[0].deepcopy()
+        if 'refdomain' in node and node['refdomain'] in env.domains:
+            domain = env.domains[node['refdomain']]
+            # We don't care where the node is actually coming from, i.e
+            # its attributes['refdoc']. It now belongs to this document,
+            # resolve links as if it belongs to us.
+            newnode = domain.resolve_xref(env, docname, app.builder,
+                                          node['reftype'], node['reftarget'],
+                                          node, contnode)
+        else:
             newnode = contnode
-        node.replace_self(newnode or contnode)
+        node.replace_self(newnode or [])
 
 
 def wikisection_container(app, env, sec_info):

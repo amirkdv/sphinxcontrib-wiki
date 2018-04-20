@@ -12,7 +12,7 @@ with open('README.rst', encoding='utf-8') as f:
 
 setup(
     name='sphinxcontrib-wiki',
-    version='0.4.0',
+    version='0.5.0',
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
     license='MIT',
     author='Amir Kadivar',
