@@ -1,0 +1,3 @@
+.. wikipage:: twice
+
+   Twice
