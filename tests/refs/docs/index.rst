@@ -12,6 +12,9 @@ Master Title
 .. wikipage:: todo
    :title: To Do List
 
+.. wikipage:: faq
+
+   Rendered twice
 
 .. toctree::
 
