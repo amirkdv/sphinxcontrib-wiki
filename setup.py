@@ -12,7 +12,8 @@ with open('README.rst', encoding='utf-8') as f:
 
 setup(
     name='sphinxcontrib-wiki',
-    version='0.5.0', # NOTE this version must also be reported to sphinx in `sphinxcontrib.wiki.setup()`
+    version='0.5.0',  # NOTE this version must also be reported to sphinx
+                      # in `sphinxcontrib.wiki.setup()`
     url='https://github.com/amirkdv/sphinxcontrib-wiki',
     license='MIT',
     author='Amir Kadivar',
