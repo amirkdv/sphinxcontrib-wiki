@@ -569,4 +569,4 @@ def setup(app):
     app.connect('env-purge-doc', env_purge_doc)
     app.connect('env-merge-info', env_merge_info)
 
-    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
+    return {'version': '0.5.0', 'parallel_read_safe': True}
